@@ -11,7 +11,7 @@ class CustomAppbar extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        //bottom: false,
+        //bottom: false,,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
