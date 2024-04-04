@@ -1,9 +1,7 @@
+import 'package:appi_prueba/presentation/presentation.dart';
 import 'package:appi_prueba/presentation/screens/landing/landing_screen.dart';
 import 'package:appi_prueba/presentation/screens/login/forgot_password.dart';
 import 'package:appi_prueba/presentation/screens/login/new_password.dart';
-import 'package:appi_prueba/presentation/screens/login/login_screen.dart';
-import 'package:appi_prueba/presentation/screens/home/home_screen.dart';
-import 'package:appi_prueba/presentation/screens/screens.dart';
 import 'package:go_router/go_router.dart';
 import 'package:appi_prueba/presentation/screens/login/register_screen.dart';
 
@@ -42,5 +40,10 @@ final appRouter = GoRouter(initialLocation: '/home-screen', routes: [
     builder: (context, state) => ForgotScreen(
       controller: LoginController(),
     ),
+  ),
+  GoRoute(
+    path: '/homeview-screen',
+    name: HomeViewScreen.name,
+    builder: (context, state) => const HomeViewScreen(),
   ),
 ]);

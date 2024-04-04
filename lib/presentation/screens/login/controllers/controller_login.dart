@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController {
   final TextEditingController emailController = TextEditingController();
@@ -14,12 +17,13 @@ class LoginController {
     context.go('/forgot-screen');
   }
 
-  void signIn(BuildContext context) {
+  Future<void> signIn(BuildContext context) async {
     final email = emailController.text;
     final password = passwordController.text;
 
     if (authService.signIn(email, password)) {
-      // Si el inicio de sesión es exitoso, muestra una alerta de éxito
+      await saveEmail(email);
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -29,8 +33,8 @@ class LoginController {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Cierra la alerta
-                  navigateToHome(context); // Navega a la pantalla de inicio
+                  Navigator.of(context).pop();
+                  navigateToHome(context);
                 },
                 child: const Text('Aceptar'),
               ),
@@ -39,7 +43,6 @@ class LoginController {
         },
       );
     } else {
-      // Si las credenciales son incorrectas, muestra una alerta de error
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -49,7 +52,7 @@ class LoginController {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Cierra la alerta
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Aceptar'),
               ),
@@ -58,6 +61,11 @@ class LoginController {
         },
       );
     }
+  }
+
+  Future<void> saveEmail(String email) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
   }
 }
 
@@ -69,11 +77,23 @@ class User {
 }
 
 class AuthService {
-  final List<User> _users = [
-    User('usuario1@example.com', 'contraseña1'),
-    User('usuario2@example.com', 'contraseña2'),
-    // Agrega más usuarios según sea necesario
-  ];
+  AuthService() {
+    loadUsersFromSharedPreferences();
+  }
+
+  List<User> _users = [];
+
+  Future<void> loadUsersFromSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? userJsonList = prefs.getStringList('users');
+
+    if (userJsonList != null) {
+      _users = userJsonList.map((userJson) {
+        final Map<String, dynamic> userData = json.decode(userJson);
+        return User(userData['email'], userData['password']);
+      }).toList();
+    }
+  }
 
   bool signIn(String email, String password) {
     for (final user in _users) {

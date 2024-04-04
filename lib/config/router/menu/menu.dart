@@ -28,16 +28,17 @@ const appMenuItems = <MenuItem>[
       title: 'Recordar contraseña',
       subTitle: 'No recuerdas tu contraseña?',
       link: '/forgot-screen',
-      icon: Icons.check_box_outline_blank_outlined),
+      icon: Icons.keyboard_outlined),
   //TODO toca cambiar las pantallas siguientes
   MenuItem(
       title: 'Favoritos',
       subTitle: 'Puedes usar Caracteres alfanumericos y especiales',
       link: '/newpassword-screen',
-      icon: Icons.check_box_outline_blank_outlined),
+      icon: Icons.apple),
   MenuItem(
-      title: 'Cerrar Sesion',
-      subTitle: 'Se perderan todos tus datos guardados',
-      link: '/register-screen',
-      icon: Icons.check_box_outline_blank_outlined),
+    title: 'Cerrar Sesion',
+    subTitle: 'Se perderan todos tus datos guardados',
+    link: '/register-screen',
+    icon: Icons.exit_to_app_rounded,
+  )
 ];

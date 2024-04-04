@@ -1,6 +1,6 @@
-import 'package:appi_prueba/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:appi_prueba/presentation/presentation.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   static const name = 'login-screen';
@@ -59,9 +59,8 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: CustomTextField(
                 obscureText: true,
-                suffixIcon: true,
                 labelText: 'Ingresa tu contraseña',
-                hintText: AutofillHints.password,
+                hintText: 'Contraseña',
                 keyboardType: TextInputType.visiblePassword,
                 controller: controller.passwordController,
               ),
@@ -88,9 +87,7 @@ class LoginScreen extends StatelessWidget {
             CustomButton(
               textColor: Colors.white,
               buttonText: 'Ingresar',
-              onPressed: () {
-                controller.signIn(context);
-              },
+              onPressed: () => context.go('/homeview-screen'),
               backgroundColor: Colors.black,
             ),
             SizedBox(
