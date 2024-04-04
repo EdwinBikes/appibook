@@ -1,28 +1,12 @@
 import 'package:appi_prueba/presentation/presentation.dart';
+import 'package:appi_prueba/presentation/screens/login/controllers/controller_register.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   static const name = 'register-screen';
-  const RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key}) : super(key: key);
 
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  bool _passwordsMatch = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordController.addListener(_comparePasswords);
-    _confirmPasswordController.addListener(_comparePasswords);
-  }
+  final RegisterLogic logic = RegisterLogic();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: IconButton(
-                onPressed: () => context.go('/home-screen'),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/home-screen');
+                },
                 icon: const Icon(
                   Icons.arrow_back_ios_new,
                 ),
@@ -46,34 +32,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: Text(
-                'Hola! registrate para iniciar',
+                'Hola! Crea una cuenta para iniciar',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               ),
             ),
-            const SizedBox(height: 50),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
               child: CustomTextField(
                 labelText: 'Nombre de usuario',
                 hintText: 'Nombre y apellido',
                 keyboardType: TextInputType.name,
+                controller: logic.usernameController,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: CustomTextField(
                 labelText: 'Correo Electronico',
                 hintText: 'Correo electronico',
                 keyboardType: TextInputType.emailAddress,
+                controller: logic.emailController,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
               child: TextField(
-                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Contraseña',
@@ -83,47 +70,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.blue),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   filled: true,
-                  errorText:
-                      _passwordsMatch ? null : 'Las contraseñas no coinciden',
-                  labelStyle: TextStyle(
-                    color: _passwordsMatch ? Colors.black : Colors.red,
-                  ),
                 ),
+                controller: logic.passwordController,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: TextField(
-                controller: _confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Confirma tu contraseña',
                   hintText: 'Contraseña',
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.blue),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   filled: true,
-                  errorText:
-                      _passwordsMatch ? null : 'Las contraseñas no coinciden',
-                  labelStyle: TextStyle(
-                    color: _passwordsMatch ? Colors.black : Colors.red,
-                  ),
                 ),
+                controller: logic.confirmPasswordController,
               ),
             ),
             const SizedBox(height: 30),
-            const CustomButtonBlack(
-              destination: '/createdates-screen',
-              buttonText: 'Ingresar',
+            CustomButton(
+              textColor: Colors.white,
+              backgroundColor: Colors.black,
+              buttonText: 'Registrar',
+              onPressed: () {
+                // Llama a la función de registro en la clase de lógica
+                logic.registerUser(context);
+              },
             ),
             const Spacer(),
             const TextBottomScreens(
@@ -136,17 +116,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
-  }
-
-  void _comparePasswords() {
-    if (_passwordController.text != _confirmPasswordController.text) {
-      setState(() {
-        _passwordsMatch = false;
-      });
-    } else {
-      setState(() {
-        _passwordsMatch = true;
-      });
-    }
   }
 }

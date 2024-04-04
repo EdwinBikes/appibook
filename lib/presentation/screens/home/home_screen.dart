@@ -34,14 +34,18 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const CustomButtonBlack(
+              const CustomButton(
+                textColor: Colors.white,
+                backgroundColor: Colors.black,
                 destination: '/login-screen',
                 buttonText: 'Iniciar sesión',
               ),
               const SizedBox(height: 10),
-              const CustomButtonWhite(
+              const CustomButton(
+                textColor: Colors.black,
                 destination: '/register-screen',
                 buttonText: 'Regístrate',
+                backgroundColor: Colors.white,
               ),
               const SizedBox(
                 height: 15,

@@ -1,10 +1,12 @@
 import 'package:appi_prueba/presentation/presentation.dart';
+import 'package:appi_prueba/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ForgotScreen extends StatelessWidget {
+  final LoginController controller;
   static const name = 'forgot-screen';
-  const ForgotScreen({super.key});
+  const ForgotScreen({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +49,20 @@ class ForgotScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 50),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 18),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 18),
               child: CustomTextField(
                 labelText: 'Ingresa tu Email',
                 hintText: AutofillHints.email,
                 keyboardType: TextInputType.emailAddress,
+                controller: controller
+                    .emailController, // Usa el controlador recibido como parámetro
               ),
             ),
             const SizedBox(height: 30),
-            const CustomButtonBlack(
+            const CustomButton(
+              textColor: Colors.white,
+              backgroundColor: Colors.black,
               destination: '/newpassword-screen',
               buttonText: 'Enviar Código',
             ),

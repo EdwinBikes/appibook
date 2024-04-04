@@ -1,10 +1,14 @@
 import 'package:appi_prueba/presentation/presentation.dart';
+import 'package:appi_prueba/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class NewPasswordScreen extends StatelessWidget {
   static const name = 'newpassword-screen';
-  const NewPasswordScreen({super.key});
+  final LoginController controller;
+
+  const NewPasswordScreen({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,29 +50,31 @@ class NewPasswordScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
             child: CustomTextField(
-              suffixIcon: true,
-              obscureText: true,
-              labelText: 'Nueva Contraseña',
-              hintText: 'Se recomienda alfa, numérica',
-              keyboardType: TextInputType.visiblePassword,
-            ),
+                suffixIcon: true,
+                obscureText: true,
+                labelText: 'Nueva Contraseña',
+                hintText: 'Se recomienda alfa, numérica',
+                keyboardType: TextInputType.visiblePassword,
+                controller: controller.passwordController),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
             child: CustomTextField(
-              suffixIcon: true,
-              obscureText: true,
-              labelText: 'Confirmar Contraseña',
-              hintText: 'Confirma la contraseña',
-              keyboardType: TextInputType.visiblePassword,
-            ),
+                suffixIcon: true,
+                obscureText: true,
+                labelText: 'Confirmar Contraseña',
+                hintText: 'Confirma la contraseña',
+                keyboardType: TextInputType.visiblePassword,
+                controller: controller.passwordController),
           ),
           const SizedBox(height: 30),
-          const CustomButtonBlack(
-            destination: '/forgot-screen',
+          const CustomButton(
+            textColor: Colors.white,
+            backgroundColor: Colors.black,
+            //destination: '/forgot-screen',
             buttonText: 'Restablecer Contraseña',
           ),
         ],

@@ -32,7 +32,6 @@ class _MyFormState extends State<MyForm> {
   final TextEditingController campo2Controller = TextEditingController();
 
   void _sendData() async {
-    print('entrada a la funcion');
     final httpPackageUrl =
         Uri.parse('https://venti-monolite-api-o1h6-dev.fl0.io/auth/login');
 
