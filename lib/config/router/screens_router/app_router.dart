@@ -43,7 +43,7 @@ final appRouter = GoRouter(initialLocation: '/home-screen', routes: [
   ),
   GoRoute(
     path: '/homeview-screen',
-    name: HomeViewScreen.name,
-    builder: (context, state) => const HomeViewScreen(),
+    name: BookListViewScreen.name,
+    builder: (context, state) => BookListViewScreen(),
   ),
 ]);

@@ -1,4 +1,4 @@
-export 'package:appi_prueba/presentation/screens/library/home_view.dart';
+export 'package:appi_prueba/presentation/screens/library/home_view_screen.dart';
 export 'package:appi_prueba/presentation/screens/home/home_screen.dart';
 export 'package:appi_prueba/presentation/screens/home/side_menu.dart';
 export 'package:appi_prueba/presentation/widgets/customs/buttons/custom_buttons.dart';
