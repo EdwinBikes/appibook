@@ -25,20 +25,13 @@ const appMenuItems = <MenuItem>[
       link: '/createdates-screen',
       icon: Icons.person_add),
   MenuItem(
-      title: 'Recordar contraseña',
-      subTitle: 'No recuerdas tu contraseña?',
-      link: '/forgot-screen',
-      icon: Icons.keyboard_outlined),
-  //TODO toca cambiar las pantallas siguientes
-  MenuItem(
-      title: 'Favoritos',
-      subTitle: 'Puedes usar Caracteres alfanumericos y especiales',
-      link: '/newpassword-screen',
+      title: 'Contenido de la APP',
+      subTitle: 'Landing',
+      link: '/landing-screen',
       icon: Icons.apple),
   MenuItem(
-    title: 'Cerrar Sesion',
-    subTitle: 'Se perderan todos tus datos guardados',
-    link: '/register-screen',
-    icon: Icons.exit_to_app_rounded,
-  )
+      title: 'Cambiar Apariencia de la APP',
+      subTitle: 'Colores',
+      link: '/theme-screen',
+      icon: Icons.color_lens),
 ];

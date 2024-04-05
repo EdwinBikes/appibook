@@ -21,10 +21,12 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: IconButton(
-                onPressed: () => controller.navigateToHome(context),
-                icon: const Icon(Icons.arrow_back_ios_new),
+                onPressed: () => context.go('/home-screen'),
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                ),
               ),
             ),
             SizedBox(
@@ -38,6 +40,19 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: SizedBox(
+                child: Text(
+                  'Inicia Sesión',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -65,29 +80,38 @@ class LoginScreen extends StatelessWidget {
                 controller: controller.passwordController,
               ),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: screenHeight * 0.015,
-                ),
-                child: GestureDetector(
-                  onTap: () => controller.navigateToForgotPassword(context),
-                  child: const Text(
-                    'No recuerdas tu Contraseña?',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
-              height: screenHeight * 0.02,
+              height: screenHeight * 0.03,
             ),
             CustomButton(
               textColor: Colors.white,
               buttonText: 'Ingresar',
-              onPressed: () => context.go('/homeview-screen'),
+              onPressed: () {
+                // Verifica si se han ingresado tanto el correo como la contraseña
+                if (controller.emailController.text.isNotEmpty &&
+                    controller.passwordController.text.isNotEmpty) {
+                  // Si ambos campos no están vacíos, intenta iniciar sesión
+                  controller.signIn(context);
+                } else {
+                  // Si uno o ambos campos están vacíos, muestra un mensaje de error
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text(
+                            'Por favor ingresa tu correo y contraseña.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
               backgroundColor: Colors.black,
             ),
             SizedBox(

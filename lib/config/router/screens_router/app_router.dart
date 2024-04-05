@@ -1,9 +1,7 @@
-import 'package:appi_prueba/presentation/presentation.dart';
-import 'package:appi_prueba/presentation/screens/landing/landing_screen.dart';
-import 'package:appi_prueba/presentation/screens/login/forgot_password.dart';
-import 'package:appi_prueba/presentation/screens/login/new_password.dart';
+import 'package:appi_prueba/presentation/screens/theme/theme_change_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:appi_prueba/presentation/screens/login/register_screen.dart';
+
+import 'package:appi_prueba/presentation/presentation.dart';
 
 final appRouter = GoRouter(initialLocation: '/home-screen', routes: [
   ///landing-screen, para que se vea la primera pantalla
@@ -28,22 +26,13 @@ final appRouter = GoRouter(initialLocation: '/home-screen', routes: [
     builder: (context, state) => const HomeScreen(),
   ),
   GoRoute(
-    path: '/newpassword-screen',
-    name: NewPasswordScreen.name,
-    builder: (context, state) => NewPasswordScreen(
-      controller: LoginController(),
-    ),
-  ),
-  GoRoute(
-    path: '/forgot-screen',
-    name: ForgotScreen.name,
-    builder: (context, state) => ForgotScreen(
-      controller: LoginController(),
-    ),
-  ),
-  GoRoute(
     path: '/homeview-screen',
     name: HomeViewScreen.name,
     builder: (context, state) => const HomeViewScreen(),
+  ),
+  GoRoute(
+    path: '/theme-screen',
+    name: ThemeChangeScreen.name,
+    builder: (context, state) => const ThemeChangeScreen(),
   ),
 ]);

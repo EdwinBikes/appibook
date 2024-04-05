@@ -1,5 +1,5 @@
+// archivo controller_login.dart
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +10,7 @@ class LoginController {
   final AuthService authService = AuthService();
 
   void navigateToHome(BuildContext context) {
-    context.go('/home-screen');
+    context.go('/homeview-screen');
   }
 
   void navigateToForgotPassword(BuildContext context) {
@@ -21,7 +21,9 @@ class LoginController {
     final email = emailController.text;
     final password = passwordController.text;
 
-    if (authService.signIn(email, password)) {
+    print('Email ingresado: $email, Contraseña ingresada: $password');
+
+    if (await authService.signIn(email, password)) {
       await saveEmail(email);
 
       showDialog(
@@ -33,7 +35,6 @@ class LoginController {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
                   navigateToHome(context);
                 },
                 child: const Text('Aceptar'),
@@ -74,6 +75,9 @@ class User {
   final String password;
 
   User(this.email, this.password);
+
+  factory User.fromJson(Map<String, dynamic> json) =>
+      User(json['email'], json['password']);
 }
 
 class AuthService {
@@ -86,21 +90,20 @@ class AuthService {
   Future<void> loadUsersFromSharedPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? userJsonList = prefs.getStringList('users');
-
+    print('Usuarios cargados: $_users');
     if (userJsonList != null) {
-      _users = userJsonList.map((userJson) {
-        final Map<String, dynamic> userData = json.decode(userJson);
-        return User(userData['email'], userData['password']);
-      }).toList();
+      _users = userJsonList
+          .map((userJson) => User.fromJson(json.decode(userJson)))
+          .toList();
     }
   }
 
-  bool signIn(String email, String password) {
-    for (final user in _users) {
-      if (user.email == email && user.password == password) {
-        return true;
-      }
-    }
-    return false;
+  Future<bool> signIn(String email, String password) async {
+    await loadUsersFromSharedPreferences(); // Cargar usuarios antes de iniciar sesión
+    final user = _users.firstWhere(
+        (user) => user.email == email && user.password == password,
+        orElse: () => User('', ''));
+    return user
+        .email.isNotEmpty; // Si el email no está vacío, el usuario es válido
   }
 }

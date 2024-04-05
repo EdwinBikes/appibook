@@ -28,9 +28,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               Text(
-                'AppiBooks',
+                'AppiBook',
                 style: GoogleFonts.katibeh(
-                  fontSize: 90,
+                  fontSize: 70,
                 ),
               ),
               const SizedBox(height: 10),
