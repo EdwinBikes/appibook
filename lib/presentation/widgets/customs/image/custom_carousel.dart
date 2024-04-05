@@ -8,10 +8,10 @@ class CustomCarousel extends StatefulWidget {
   const CustomCarousel({Key? key, required this.books}) : super(key: key);
 
   @override
-  _CustomCarouselState createState() => _CustomCarouselState();
+  CustomCarouselState createState() => CustomCarouselState();
 }
 
-class _CustomCarouselState extends State<CustomCarousel> {
+class CustomCarouselState extends State<CustomCarousel> {
   late PageController _pageController;
 
   @override

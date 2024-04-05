@@ -58,19 +58,7 @@ class BookDetailsScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 8.0),
-                TextButton(
-                  onPressed: () {
-                    // Agrega aquí la lógica para realizar alguna acción cuando se presiona el botón
-                  },
-                  child: const Text(
-                    'Ver más detalles',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
+                const SizedBox(height: 20.0),
               ],
             ),
           ),

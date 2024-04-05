@@ -9,3 +9,4 @@ export 'package:appi_prueba/presentation/screens/login/controllers/controller_lo
 export 'package:appi_prueba/presentation/screens/login/controllers/controller_register.dart';
 export 'package:appi_prueba/presentation/screens/landing/landing_screen.dart';
 export 'package:appi_prueba/presentation/screens/login/register_screen.dart';
+export 'package:appi_prueba/presentation/widgets/customs/image/custom_carousel.dart';

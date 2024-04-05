@@ -21,7 +21,7 @@ class LoginController {
     final email = emailController.text;
     final password = passwordController.text;
 
-    print('Email ingresado: $email, Contraseña ingresada: $password');
+    //print('Email ingresado: $email, Contraseña ingresada: $password');
 
     if (await authService.signIn(email, password)) {
       await saveEmail(email);
@@ -90,7 +90,7 @@ class AuthService {
   Future<void> loadUsersFromSharedPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? userJsonList = prefs.getStringList('users');
-    print('Usuarios cargados: $_users');
+    //print('Usuarios cargados: $_users');
     if (userJsonList != null) {
       _users = userJsonList
           .map((userJson) => User.fromJson(json.decode(userJson)))

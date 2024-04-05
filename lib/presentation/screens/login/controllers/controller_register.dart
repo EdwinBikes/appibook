@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appi_prueba/presentation/screens/login/controllers/controller_login.dart';
 
@@ -90,7 +91,7 @@ class RegisterLogic {
             content: const Text('Usuario creado satisfactoriamente.'),
             actions: [
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => context.go('/login-screen'),
                 child: const Text('OK'),
               ),
             ],
